@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ShowController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('wel');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,5 +27,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('showAuthUser',[ShowController::class,'show']);
+Route::get('checkAuthUser',[ShowController::class,'checkAuthUser'])->name('check');
+
+Route::get('report',function ()
+{
+    return view('report');
+})->middleware('auth');
 
 require __DIR__.'/auth.php';
